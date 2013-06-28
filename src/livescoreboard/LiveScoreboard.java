@@ -67,7 +67,10 @@ public class LiveScoreboard extends JavaPlugin {
         hmk.put(killer.getName(), (hmk.get(killer.getName()) + 1));
 
     }
-    public void onPlayerQuit(PlayerQuitEvent e){
-        
+
+    public void onPlayerQuit(PlayerQuitEvent e) {
+        Player p = e.getPlayer();
+        hmd.remove(p.getName());
+        hmk.remove(p.getName());
     }
 }
