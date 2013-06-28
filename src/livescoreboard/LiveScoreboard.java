@@ -9,6 +9,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scoreboard.DisplaySlot;
@@ -61,8 +62,12 @@ public class LiveScoreboard extends JavaPlugin {
     @EventHandler
     public void onPlayerKill(PlayerDeathEvent e) {
         Player killed = e.getEntity();
-        Player Killer = killed.getKiller();
+        Player killer = killed.getKiller();
         hmd.put(killed.getName(), (hmd.get(killed.getName()) + 1));
+        hmk.put(killer.getName(), (hmk.get(killer.getName()) + 1));
 
+    }
+    public void onPlayerQuit(PlayerQuitEvent e){
+        
     }
 }
