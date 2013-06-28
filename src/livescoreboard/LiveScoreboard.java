@@ -21,7 +21,8 @@ public class LiveScoreboard extends JavaPlugin {
 
     public final static Logger logger = Logger.getLogger("minecraft");
     public String prefix;
-    public HashMap hm = new HashMap();
+    HashMap<String, Integer> hmd = new HashMap<String, Integer>();
+    HashMap<String, Integer> hmk = new HashMap<String, Integer>();
 
     @Override
     public void onDisable() {
@@ -51,15 +52,17 @@ public class LiveScoreboard extends JavaPlugin {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent e) {
         int kills = 0;
+        int deaths = 0;
         Player p = e.getPlayer();
-        hm.put(p, kills);
+        hmk.put(p.getName(), kills);
+        hmd.put(p.getName(), deaths);
     }
 
     @EventHandler
     public void onPlayerKill(PlayerDeathEvent e) {
         Player killed = e.getEntity();
         Player Killer = killed.getKiller();
-
+        hmd.put(killed.getName(), (hmd.get(killed.getName()) + 1));
 
     }
 }
