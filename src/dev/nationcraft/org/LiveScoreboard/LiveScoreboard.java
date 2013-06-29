@@ -61,7 +61,7 @@ public class LiveScoreboard extends JavaPlugin {
         }
         String[] fpl = (String[]) players.toArray();
         Integer[] fvl = (Integer[]) nums.toArray();
-        Score s = obj.getScore(Bukkit.getServer().getOfflinePlayer(fpl[1]));
+        Score s = obj.getScore(Bukkit.getServer().getOfflinePlayer(fpl[0]));
         s.setScore(fvl[0]);
     }
 
