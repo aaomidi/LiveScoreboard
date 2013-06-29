@@ -32,6 +32,8 @@ public class LiveScoreboard extends JavaPlugin {
     HashMap<String, Integer> hmk = new HashMap<String, Integer>();
     SortedMap<String, Integer> kdr = new TreeMap<>();
     ArrayList<Integer> nums;
+    public ScoreboardManager sm = Bukkit.getScoreboardManager();
+    public Scoreboard b = sm.getNewScoreboard();
 
     @Override
     public void onDisable() {
@@ -44,13 +46,10 @@ public class LiveScoreboard extends JavaPlugin {
     public void onEnable() {
         PluginDescriptionFile pdf = this.getDescription();
         logger.log(Level.INFO, "{0}, version {1} coded by {2} has been Enabled!", new Object[]{pdf.getName(), pdf.getVersion(), pdf.getAuthors()});
-        hmd.put("Herobrine", 1);
-        hmk.put("Herobrine", 1);
     }
 
     public void ScoreBoard() {
-        ScoreboardManager sm = Bukkit.getScoreboardManager();
-        Scoreboard b = sm.getNewScoreboard();
+
         Objective obj = b.registerNewObjective("test", "dummy");
         obj.setDisplaySlot(DisplaySlot.SIDEBAR);
         obj.setDisplayName("Live KDR");
@@ -73,6 +72,8 @@ public class LiveScoreboard extends JavaPlugin {
         Player p = e.getPlayer();
         hmk.put(p.getName(), kills);
         hmd.put(p.getName(), deaths);
+        this.ScoreBoard();
+
     }
 
     @EventHandler
@@ -83,9 +84,11 @@ public class LiveScoreboard extends JavaPlugin {
         hmk.put(killer.getName(), (hmk.get(killer.getName()) + 1));
         int death = hmd.get(killer.getName());
         int kill = hmk.get(killer.getName());
-        int ratio = kill / death;
+        int ratio = Math.round(kill / death);
         kdr.put(killer.getName(), ratio);
         this.ScoreBoard();
+        killed.setScoreboard(b);
+        killer.setScoreboard(b);
 
     }
 
