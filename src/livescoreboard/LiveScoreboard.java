@@ -23,6 +23,7 @@ public class LiveScoreboard extends JavaPlugin {
     public String prefix;
     HashMap<String, Integer> hmd = new HashMap<String, Integer>();
     HashMap<String, Integer> hmk = new HashMap<String, Integer>();
+    HashMap<String, Double> kdr = new HashMap<String, Double>();
 
     @Override
     public void onDisable() {
@@ -63,7 +64,10 @@ public class LiveScoreboard extends JavaPlugin {
         Player killer = killed.getKiller();
         hmd.put(killed.getName(), (hmd.get(killed.getName()) + 1));
         hmk.put(killer.getName(), (hmk.get(killer.getName()) + 1));
-
+        int death = hmd.get(killer.getName());
+        int kill = hmk.get(killer.getName());
+        double ratio = kill / death;
+        kdr.put(killer.getName(), ratio);
     }
 
     public void onPlayerQuit(PlayerQuitEvent e) {
