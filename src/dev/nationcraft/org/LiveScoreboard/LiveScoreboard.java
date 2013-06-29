@@ -24,47 +24,47 @@ import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.ScoreboardManager;
 
 public class LiveScoreboard extends JavaPlugin {
-    
+
     public final static Logger logger = Logger.getLogger("minecraft");
     public String prefix;
     HashMap<String, Integer> hmd = new HashMap<String, Integer>();
     HashMap<String, Integer> hmk = new HashMap<String, Integer>();
     SortedMap<String, Integer> kdr = new TreeMap<>();
     ArrayList<Double> nums = new ArrayList<>();
-    
+
     @Override
     public void onDisable() {
         PluginDescriptionFile pdf = this.getDescription();
-        
+
         logger.log(Level.INFO, "{0}, version {1} coded by {2} has been Disabled!", new Object[]{pdf.getName(), pdf.getVersion(), pdf.getAuthors()});
     }
-    
+
     @Override
     public void onEnable() {
         PluginDescriptionFile pdf = this.getDescription();
         logger.log(Level.INFO, "{0}, version {1} coded by {2} has been Enabled!", new Object[]{pdf.getName(), pdf.getVersion(), pdf.getAuthors()});
         this.ScoreBoard();
     }
-    
+
     public void ScoreBoard() {
         ScoreboardManager sm = Bukkit.getScoreboardManager();
         Scoreboard b = sm.getNewScoreboard();
         Objective obj = b.registerNewObjective("test", "dummy");
         obj.setDisplaySlot(DisplaySlot.SIDEBAR);
         obj.setDisplayName("Live KDR");
-        Set<String> players=kdr.keySet();
+        Set<String> players = kdr.keySet();
         Iterator i = kdr.keySet().iterator();
         while (i.hasNext()) {
             String key = (String) i.next();
             double num = kdr.get(key);
             nums.add(num);
         }
-        String[] fpl=(String[]) players.toArray();
-        Integer[] fvl=(Integer[]) players.toArray();
-        Score s=obj.getScore(Bukkit.getServer().getOfflinePlayer(fpl[1]));
+        String[] fpl = (String[]) players.toArray();
+        Integer[] fvl = (Integer[]) nums.toArray();
+        Score s = obj.getScore(Bukkit.getServer().getOfflinePlayer(fpl[1]));
         s.setScore(fvl[0]);
     }
-    
+
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent e) {
         int kills = 0;
@@ -73,7 +73,7 @@ public class LiveScoreboard extends JavaPlugin {
         hmk.put(p.getName(), kills);
         hmd.put(p.getName(), deaths);
     }
-    
+
     @EventHandler
     public void onPlayerKill(PlayerDeathEvent e) {
         Player killed = e.getEntity();
@@ -85,9 +85,9 @@ public class LiveScoreboard extends JavaPlugin {
         int ratio = kill / death;
         kdr.put(killer.getName(), ratio);
         this.ScoreBoard();
-        
+
     }
-    
+
     public void onPlayerQuit(PlayerQuitEvent e) {
         Player p = e.getPlayer();
         hmd.remove(p.getName());
