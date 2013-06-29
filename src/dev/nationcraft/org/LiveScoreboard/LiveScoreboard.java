@@ -55,15 +55,14 @@ public class LiveScoreboard extends JavaPlugin {
         obj.setDisplayName("Live KDR");
         Set<String> players = kdr.keySet();
         Iterator i = kdr.keySet().iterator();
-        String finallist = players.toString();
-        String[] cats = finallist.split(",");
+        String[] finallist = players.toString().split(",");
         while (i.hasNext()) {
             String key = (String) i.next();
             int num = kdr.get(key);
             nums.add(num);
         }
-        Score s = obj.getScore(Bukkit.getServer().getOfflinePlayer(cats[0]));
-        s.setScore(nums.get(1));
+        Score s = obj.getScore(Bukkit.getServer().getOfflinePlayer(finallist[0]));
+        s.setScore(nums.get(0));
     }
 
     @EventHandler
