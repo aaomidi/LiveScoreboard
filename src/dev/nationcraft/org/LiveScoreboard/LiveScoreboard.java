@@ -2,6 +2,7 @@ package dev.nationcraft.org.LiveScoreboard;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -30,7 +31,7 @@ public class LiveScoreboard extends JavaPlugin {
     HashMap<String, Integer> hmd = new HashMap<String, Integer>();
     HashMap<String, Integer> hmk = new HashMap<String, Integer>();
     SortedMap<String, Integer> kdr = new TreeMap<>();
-    ArrayList<Double> nums = new ArrayList<>();
+    ArrayList<Integer> nums = new ArrayList<>();
 
     @Override
     public void onDisable() {
@@ -54,15 +55,15 @@ public class LiveScoreboard extends JavaPlugin {
         obj.setDisplayName("Live KDR");
         Set<String> players = kdr.keySet();
         Iterator i = kdr.keySet().iterator();
+        String finallist = players.toString();
+        String[] cats = finallist.split(",");
         while (i.hasNext()) {
             String key = (String) i.next();
-            double num = kdr.get(key);
+            int num = kdr.get(key);
             nums.add(num);
         }
-        String[] fpl = (String[]) players.toArray();
-        Integer[] fvl = (Integer[]) nums.toArray();
-        Score s = obj.getScore(Bukkit.getServer().getOfflinePlayer(fpl[0]));
-        s.setScore(fvl[0]);
+        Score s = obj.getScore(Bukkit.getServer().getOfflinePlayer(cats[0]));
+        s.setScore(nums.get(1));
     }
 
     @EventHandler
