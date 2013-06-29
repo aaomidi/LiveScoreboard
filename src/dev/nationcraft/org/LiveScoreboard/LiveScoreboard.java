@@ -41,10 +41,9 @@ public class LiveScoreboard extends JavaPlugin {
     
     @Override
     public void onEnable() {
-        saveDefaultConfig();
         PluginDescriptionFile pdf = this.getDescription();
         logger.log(Level.INFO, "{0}, version {1} coded by {2} has been Enabled!", new Object[]{pdf.getName(), pdf.getVersion(), pdf.getAuthors()});
-        prefix = getConfig().getString("Prefix" + ":"); //Config Setup
+        this.ScoreBoard();
     }
     
     public void ScoreBoard() {
@@ -85,6 +84,7 @@ public class LiveScoreboard extends JavaPlugin {
         int kill = hmk.get(killer.getName());
         int ratio = kill / death;
         kdr.put(killer.getName(), ratio);
+        this.ScoreBoard();
         
     }
     
