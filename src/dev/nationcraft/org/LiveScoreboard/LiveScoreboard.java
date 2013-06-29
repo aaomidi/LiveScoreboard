@@ -31,7 +31,7 @@ public class LiveScoreboard extends JavaPlugin {
     HashMap<String, Integer> hmd = new HashMap<String, Integer>();
     HashMap<String, Integer> hmk = new HashMap<String, Integer>();
     SortedMap<String, Integer> kdr = new TreeMap<>();
-    ArrayList<Integer> nums = new ArrayList<>();
+    ArrayList<Integer> nums;
 
     @Override
     public void onDisable() {
@@ -44,7 +44,8 @@ public class LiveScoreboard extends JavaPlugin {
     public void onEnable() {
         PluginDescriptionFile pdf = this.getDescription();
         logger.log(Level.INFO, "{0}, version {1} coded by {2} has been Enabled!", new Object[]{pdf.getName(), pdf.getVersion(), pdf.getAuthors()});
-        this.ScoreBoard();
+        hmd.put("Herobrine", 1);
+        hmk.put("Herobrine", 1);
     }
 
     public void ScoreBoard() {
@@ -67,8 +68,8 @@ public class LiveScoreboard extends JavaPlugin {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent e) {
-        int kills = 0;
-        int deaths = 0;
+        int kills = 1;
+        int deaths = 1;
         Player p = e.getPlayer();
         hmk.put(p.getName(), kills);
         hmd.put(p.getName(), deaths);
